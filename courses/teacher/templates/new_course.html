@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="relative flex flex-col rounded-xl bg-transparent m-auto w-[90%]">
+    <h4 class="block text-xl font-medium text-slate-800">Novo curso</h4>
+    <form method="post" action="{% url 'new-course' %}" class="mt-8 mb-2 w-full max-w-screen-lg flex flex-col">
+      {% csrf_token %}
+      <div class="mb-1 flex flex-col gap-6">
+        <div class="w-full max-w-sm min-w-[200px]">
+          <label class="block mb-2 text-sm text-slate-600">Nome do curso</label>
+          <input required name="name" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="CSS do zero" />
+        </div>
+        <div class="w-full max-w-sm min-w-[200px]">
+          <label class="block mb-2 text-sm text-slate-600">Categoria</label>
+          <div class="relative">
+            <select name="category" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
+              <option value="frontend">Frontend</option>
+              <option value="backend">Backend</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+            </svg>
+          </div>
+        </div>
+        <div class="w-full max-w-sm min-w-[200px]">
+          <label class="block mb-2 text-sm text-slate-600">Status</label>
+          <div class="relative">
+            <select name="status" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
+              <option value="ativo">Ativo</option>
+              <option value="inativo">Inativo</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 my-6">
+        <h3 class="text-xl">Aulas</h3>
+        <button type="button" id="add-lesson-btn" class="transition-colors flex items-center justify-center text-md rounded-full text-white bg-emerald-500 hover:bg-emerald-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+          </svg>
+        </button>
+      </div>
+      <section id="lessons-container" class="flex flex-col gap-6"></section>
+
+      <button class="max-w-sm min-w-[200px] mt-10 ml-auto w-full rounded-md bg-emerald-500 py-2 px-4 border border-transparent text-center text-md text-white transition-all shadow-md hover:shadow-lg focus:bg-emerald-700 focus:shadow-none active:bg-emerald-700 hover:bg-emerald-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">Criar curso</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('add-lesson-btn').addEventListener('click', function () {
+      const lessonsContainer = document.getElementById('lessons-container')
+    
+      const lessonTemplate = `
+              <div class="w-full flex flex-wrap gap-4 items-center">
+                <div class="lesson w-full max-w-sm flex-1 basis-72">
+                    <label class="block mb-2 text-sm text-slate-600">Nome da Aula</label>
+                    <input required name="lessons[][name]" type="text" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Ex.: Introdução ao CSS" />
+                </div>
+                <div class="lesson w-full max-w-sm flex-1 basis-60">
+                    <label class="block mb-2 text-sm text-slate-600">Link do Vídeo</label>
+                    <input required name="lessons[][url]" type="url" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Ex.: https://youtu.be/..." />
+                </div>
+                <button type="button" class="self-end text-red-500 text-sm hover:underline remove-lesson-btn">Remover</button>
+              </div>
+          `
+    
+      lessonsContainer.insertAdjacentHTML('beforeend', lessonTemplate)
+    
+      lessonsContainer.querySelectorAll('.remove-lesson-btn').forEach((btn) => {
+        btn.addEventListener('click', function () {
+          btn.parentElement.remove()
+        })
+      })
+    })
+    
+    document.body.querySelectorAll('.remove-lesson-btn').forEach((btn) => {
+      btn.addEventListener('click', function () {
+        btn.parentElement.remove()
+      })
+    })
+  </script>
+{% endblock %}
