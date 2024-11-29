@@ -17,12 +17,53 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from teacher import views
+from teacher.views import home, create_new_course, edit_course, delete_course
+from login.views import signup, register_user, login_view
+from student.views import home as student_home
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", views.home, name="home"),
-    path("new-course/", views.create_new_course, name="new-course"),
-    path("edit-course/<uuid:id>/", views.edit_course, name="edit-course"),
-    path("delete-course/<uuid:id>/", views.delete_course, name="delete-course"),
+    path(
+        "admin/",
+        admin.site.urls,
+    ),
+    path(
+        "",
+        login_view,
+        name="login",
+    ),
+    path(
+        "cadastrar/",
+        signup,
+        name="cadastrar",
+    ),
+    path(
+        "register_user/",
+        register_user,
+        name="register_user",
+    ),
+    path(
+        "home/",
+        home,
+        name="home",
+    ),
+    path(
+        "student_home/",
+        student_home,
+        name="student_home",
+    ),
+    path(
+        "new-course/",
+        create_new_course,
+        name="new-course",
+    ),
+    path(
+        "edit-course/<uuid:id>/",
+        edit_course,
+        name="edit-course",
+    ),
+    path(
+        "delete-course/<uuid:id>/",
+        delete_course,
+        name="delete-course",
+    ),
 ]

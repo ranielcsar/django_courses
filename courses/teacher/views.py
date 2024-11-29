@@ -35,7 +35,7 @@ def create_new_course(request: HttpRequest):
                 name, url = lesson_data
                 course.lessons.create(name=name, youtube_url=url, course=course)
 
-            return redirect("/")
+            return redirect("/home")
         except Exception as e:
             return HttpResponse(f"Erro ao criar o curso: {str(e)}", status=500)
     return render(request, "new_course.html")
@@ -61,7 +61,7 @@ def edit_course(request: HttpRequest, id: str):
                 name, url = lesson_data
                 course.lessons.create(name=name, youtube_url=url, course=course)
 
-            return redirect("/")
+            return redirect("/home")
         except Exception as e:
             return HttpResponse(f"Erro ao editar o curso: {str(e)}", status=500)
 
