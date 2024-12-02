@@ -14,13 +14,22 @@ def register_user(request: HttpRequest):
         password = request.POST.get("password")
         email = request.POST.get("email")
         role = request.POST.get("role")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
 
         if not username or not password or not email:
             return render(
                 request, "register.html", {"error": "Todos os campos são obrigatórios."}
             )
 
-        user = User.objects.create_user(username, email, password, role=role)
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            role=role,
+        )
         user.save()
         return redirect("/")
 
