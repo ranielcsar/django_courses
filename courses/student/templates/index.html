@@ -1,5 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Oi, {{ student.username }}</h1>
+  <div class="divide-y divide-slate-200 overflow-y-auto w-full">
+    {% for course in courses %}
+      <div class="flex items-center justify-between pb-3 pt-3 last:pb-0">
+        <div class="flex items-center gap-x-3">
+          {% if course.category == 'frontend' %}
+            <span class="flex items-center justify-center h-10 w-10 text-xl text-white bg-cyan-500 rounded-full">{{ course.name|slice:':1' }}</span>
+          {% else %}
+            <span class="flex items-center justify-center h-10 w-10 text-xl text-white bg-emerald-500 rounded-full">{{ course.name|slice:':1' }}</span>
+          {% endif %}
+          <div>
+            <h6 class="text-slate-800 font-semibold">{{ course.name }}</h6>
+            <p class="text-slate-600 text-sm first-letter:uppercase">{{ course.category }}</p>
+            <span class="text-slate-600 text-sm">{{ course.lessons.all|length }} aula(s)</span>
+          </div>
+        </div>
+        <div class="flex gap-4 items-center">
+          <a class="text-emerald-500 hover:text-emerald-700" href="/buy-course/{{ course.id }}">Adquirir curso</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}
