@@ -79,7 +79,12 @@ def delete_course(request: HttpRequest, id: str):
     return redirect("/")
 
 
-def home(request: HttpRequest):
+def get_courses(request: HttpRequest):
     courses = Course.objects.all()
 
+    return courses
+
+
+def home(request: HttpRequest):
+    courses = get_courses(request)
     return render(request, "home.html", {"courses": courses})
