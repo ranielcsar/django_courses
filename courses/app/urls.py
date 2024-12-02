@@ -17,7 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from teacher.views import home, create_new_course, edit_course, delete_course
+from teacher.views import (
+    home,
+    create_new_course,
+    edit_course,
+    delete_course,
+)
 from login.views import signup, register_user, login_view
 from student.views import home as student_home
 
