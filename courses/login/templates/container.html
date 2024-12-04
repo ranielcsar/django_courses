@@ -8,9 +8,10 @@
     {% endblock %}
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="flex w-screen h-screen items-center justify-center">
+  <body class="flex flex-col w-screen h-screen items-center justify-center">
     {% block content %}
 
     {% endblock %}
+    {% include 'footer.html' %}
   </body>
 </html>

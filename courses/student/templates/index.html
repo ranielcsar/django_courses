@@ -1,25 +1,52 @@
 {% extends 'base.html' %}
+{% load l10n %}
 
 {% block content %}
-  <div class="divide-y divide-slate-200 overflow-y-auto w-full">
+  <div class="divide-y divide-slate-200 overflow-y-auto w-full flex flex-wrap gap-6">
     {% for course in courses %}
-      <div class="flex items-center justify-between pb-3 pt-3 last:pb-0">
-        <div class="flex items-center gap-x-3">
-          {% if course.category == 'frontend' %}
-            <span class="flex items-center justify-center h-10 w-10 text-xl text-white bg-cyan-500 rounded-full">{{ course.name|slice:':1' }}</span>
-          {% else %}
-            <span class="flex items-center justify-center h-10 w-10 text-xl text-white bg-emerald-500 rounded-full">{{ course.name|slice:':1' }}</span>
-          {% endif %}
-          <div>
-            <h6 class="text-slate-800 font-semibold">{{ course.name }}</h6>
-            <p class="text-slate-600 text-sm first-letter:uppercase">{{ course.category }}</p>
-            <span class="text-slate-600 text-sm">{{ course.lessons.all|length }} aula(s)</span>
+      <article class="relative flex-1 min-h-64 basis-[20em] max-w-[32em] border rounded-md border-slate-800 flex flex-col">
+        {% if course.category == 'frontend' %}
+          <a href="/buy-course/{{ course.id }}"><span class="absolute top-4 right-2 border-b-2 border-b-cyan-500 hover:text-cyan-500">R$ {{ course.price|floatformat:2 }}</span></a>
+        {% else %}
+          <a href="/buy-course/{{ course.id }}"><span class="absolute top-4 right-2 border-b-2 border-b-emerald-500 hover:text-emerald-500">R$ {{ course.price|floatformat:2 }}</span></a>
+        {% endif %}
+
+        <div class="flex-[0.4] p-4">
+          <h4 class="text-slate-400 text-md">{{ course.category|capfirst }}</h4>
+          <h2 class="text-slate-800 text-xl">Profª: {{ course.teacher.first_name|capfirst }}</h2>
+          <span class="text-slate-600 text-sm">{{ course.lessons.all|length }} aula(s)</span>
+        </div>
+
+        {% if course.category == 'frontend' %}
+          <div class="flex-1 bg-cyan-500 flex rounded-b-[inherit]">
+            <span class="m-auto text-2xl text-white">{{ course.name }}</span>
           </div>
-        </div>
-        <div class="flex gap-4 items-center">
-          <a class="text-emerald-500 hover:text-emerald-700" href="/buy-course/{{ course.id }}">Adquirir curso</a>
-        </div>
-      </div>
+        {% else %}
+          <div class="flex-1 bg-emerald-500 flex rounded-b-[inherit]">
+            <span class="m-auto text-2xl text-white">{{ course.name }}</span>
+          </div>
+        {% endif %}
+      </article>
     {% endfor %}
   </div>
 {% endblock %}
+
+{% comment %} <div class="flex items-center justify-between pb-3 pt-3 last:pb-0">
+  <div class="flex w-1/2 items-center gap-x-3">
+    {% if course.category == 'frontend' %}
+      <span class="flex items-center justify-center h-10 w-10 text-xl text-white bg-cyan-500 rounded-full">{{ course.name|slice:':1' }}</span>
+    {% else %}
+      <span class="flex items-center justify-center h-10 w-10 text-xl text-white bg-emerald-500 rounded-full">{{ course.name|slice:':1' }}</span>
+    {% endif %}
+    <div class="flex w-full justify-evenly items-center">
+      <h6 class="text-slate-800 font-semibold">{{ course.name }}</h6>
+      <p class="text-slate-600 text-sm first-letter:uppercase">{{ course.category }}</p>
+      <span class="text-slate-600 text-sm">Profª: {{ course.teacher|capfirst }}</span>
+      <span class="text-slate-600 text-sm">{{ course.lessons.all|length }} aula(s)</span>
+    </div>
+  </div>
+
+  <div class="flex gap-4 items-center">
+    <a class="text-emerald-500 hover:text-emerald-700" href="/buy-course/{{ course.id }}">Adquirir curso</a>
+  </div>
+</div> {% endcomment %}

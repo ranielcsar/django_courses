@@ -52,3 +52,8 @@ def login_view(request: HttpRequest):
 
 def home(request: HttpRequest):
     return render(request, "home.html", {"user": request.user})
+
+
+def logout(request: HttpRequest):
+    request.session.flush()
+    return redirect("/")

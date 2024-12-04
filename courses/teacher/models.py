@@ -53,14 +53,32 @@ class Course(models.Model):
         max_length=50,
         choices=[(tag.name, tag.value) for tag in StatusEnum],
     )
-    lessons = models.ManyToManyField("Lesson", blank=True, related_name="courses")
+    lessons = models.ManyToManyField(
+        "Lesson",
+        blank=True,
+        related_name="courses",
+    )
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0.0,
+    )
+    teacher = models.ForeignKey(
+        "login.User",
+        on_delete=models.CASCADE,
+        related_name="courses",
+        null=True,
+        blank=True,
+    )
 
     @classmethod
-    def create(cls, name, category, status, lessons=None):
+    def create(cls, name, category, status, lessons=None, price=0.0, teacher=None):
         course = cls(
             name=name,
             category=category,
             status=status,
+            price=price,
+            teacher=teacher,
         )
         course.save()
         if lessons:

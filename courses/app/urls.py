@@ -23,7 +23,7 @@ from teacher.views import (
     edit_course,
     delete_course,
 )
-from login.views import signup, register_user, login_view
+from login.views import signup, register_user, login_view, logout
 from student.views import home as student_home
 
 urlpatterns = [
@@ -70,5 +70,10 @@ urlpatterns = [
         "delete-course/<uuid:id>/",
         delete_course,
         name="delete-course",
+    ),
+    path(
+        "logout/",
+        logout,
+        name="logout",
     ),
 ]

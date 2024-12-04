@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="relative flex flex-col rounded-xl bg-transparent">
+  <div class="relative flex flex-col m-auto rounded-xl bg-transparent">
     <h4 class="block text-xl font-medium text-slate-800 text-center">Login</h4>
     <form method="post" action="{% url 'login' %}" class="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
       {% csrf_token %}
