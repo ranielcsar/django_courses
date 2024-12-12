@@ -16,3 +16,10 @@ def home(request: HttpRequest):
             "courses": courses,
         },
     )
+
+
+@login_required
+def buy_course(request: HttpRequest, slug: str):
+    course = Course.objects.get(slug=slug)
+
+    return render(request, "buy_course.html", {"course": course})

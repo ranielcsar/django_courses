@@ -8,7 +8,11 @@
   </head>
   <body class="overflow-hidden h-screen w-screen flex flex-col">
     <header class="w-screen p-4 items-center text-center justify-evenly flex bg-emerald-600 text-2xl text-white">
-      <h1>Cursos Online</h1>
+      <h1>
+        {% block link_home %}
+          <a href="/home">Cursos Online</a>
+        {% endblock %}
+      </h1>
 
       <a href="/logout" class="flex gap-2 items-center">
         <span class="text-xl">Sair</span>
@@ -18,7 +22,7 @@
         </svg>
       </a>
     </header>
-    <main class="relative bg-white shadow-sm border border-slate-200 rounded-lg flex flex-col w-[80%] h-4/5 m-auto items-center justify-start p-4 overflow-y-auto">
+    <main class="relative bg-white flex flex-col w-[80%] h-4/5 m-auto items-center justify-start p-4 overflow-y-auto">
       {% block content %}
 
       {% endblock %}

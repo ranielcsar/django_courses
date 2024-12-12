@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 import uuid
 from enum import Enum
 
@@ -70,6 +71,11 @@ class Course(models.Model):
         null=True,
         blank=True,
     )
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        blank=True,
+    )
 
     @classmethod
     def create(cls, name, category, status, lessons=None, price=0.0, teacher=None):
@@ -79,6 +85,7 @@ class Course(models.Model):
             status=status,
             price=price,
             teacher=teacher,
+            slug=slugify(name),
         )
         course.save()
         if lessons:

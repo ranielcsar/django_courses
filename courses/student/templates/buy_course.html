@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block link_home %}
+  <a href="/student_home">Cursos Online</a>
+{% endblock %}
+
+{% block content %}
+  <article class="relative w-1/2 border rounded-md border-slate-800 flex flex-col min-h-64">
+    <a href="/confirm-course-buying" class="text-emerald-500 hover:text-emerald-700 absolute top-2 right-2">Comprar</a>
+
+    <div class="flex-[0.4] p-4">
+      <h2 class="text-slate-800 text-xl">Curso de {{ course.category|capfirst }} ministrado por Profª: {{ course.teacher.first_name|capfirst }}</h2>
+      <h3>
+        Valor do curso:{% if course.category == 'frontend' %}
+          <span class="border-b-2 border-b-cyan-500">R$ {{ course.price|floatformat:2 }}</span>
+        {% else %}
+          <span class="border-b-2 border-b-emerald-500">R$ {{ course.price|floatformat:2 }}</span>
+        {% endif %}
+      </h3>
+      <span class="text-slate-600 text-sm">{{ course.lessons.all|length }} aula(s)</span>
+    </div>
+
+    {% if course.category == 'frontend' %}
+      <div class="flex-1 bg-cyan-500 flex rounded-b-[inherit]">
+        <span class="m-auto text-2xl text-white">{{ course.name }}</span>
+      </div>
+    {% else %}
+      <div class="flex-1 bg-emerald-500 flex rounded-b-[inherit]">
+        <span class="m-auto text-2xl text-white">{{ course.name }}</span>
+      </div>
+    {% endif %}
+  </article>
+{% endblock %}
