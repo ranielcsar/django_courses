@@ -101,4 +101,4 @@ def get_courses(request: HttpRequest):
 
 def home(request: HttpRequest):
     courses = get_courses(request)
-    return render(request, "home.html", {"courses": courses})
+    return render(request, "teacher_home.html", {"courses": courses})

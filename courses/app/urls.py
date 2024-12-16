@@ -16,40 +16,21 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from teacher.views import (
-    home,
-    create_new_course,
-    edit_course,
-    delete_course,
-)
-from login.views import signup, register_user, login_view, logout
+from django.urls import include, path
 from student.views import home as student_home, buy_course
+from login.views import logout
 
 urlpatterns = [
     path(
         "admin/",
         admin.site.urls,
     ),
+    path("home/", include("teacher.urls")),
+    path("login/", include("login.urls")),
     path(
-        "",
-        login_view,
-        name="login",
-    ),
-    path(
-        "cadastrar/",
-        signup,
-        name="cadastrar",
-    ),
-    path(
-        "register_user/",
-        register_user,
-        name="register_user",
-    ),
-    path(
-        "home/",
-        home,
-        name="home",
+        "logout/",
+        logout,
+        name="logout",
     ),
     path(
         "student_home/",
@@ -57,28 +38,8 @@ urlpatterns = [
         name="student_home",
     ),
     path(
-        "new-course/",
-        create_new_course,
-        name="new-course",
-    ),
-    path(
-        "edit-course/<uuid:id>/",
-        edit_course,
-        name="edit-course",
-    ),
-    path(
-        "delete-course/<uuid:id>/",
-        delete_course,
-        name="delete-course",
-    ),
-    path(
         "buy-course/<slug:slug>/",
         buy_course,
         name="buy_course",
-    ),
-    path(
-        "logout/",
-        logout,
-        name="logout",
     ),
 ]

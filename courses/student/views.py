@@ -10,7 +10,7 @@ def home(request: HttpRequest):
 
     return render(
         request,
-        "index.html",
+        "student_home.html",
         {
             "student": request.user,
             "courses": courses,

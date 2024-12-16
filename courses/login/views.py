@@ -56,4 +56,4 @@ def home(request: HttpRequest):
 
 def logout(request: HttpRequest):
     request.session.flush()
-    return redirect("/")
+    return redirect("/login")
