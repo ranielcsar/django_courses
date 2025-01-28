@@ -1,7 +1,7 @@
 FROM python:3.10
 
 COPY requirements.txt requirements.txt
-COPY entrypoint.sh entrypoint.sh
+COPY init.sh entrypoint.sh
 RUN chmod +x entrypoint.sh
 
 # copia o código do app para o conteiner
