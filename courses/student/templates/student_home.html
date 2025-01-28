@@ -2,13 +2,13 @@
 {% load l10n %}
 
 {% block link_home %}
-  <a href="/student_home">Cursos Online</a>
+  <a href="/student">Cursos Online</a>
 {% endblock %}
 
 {% block content %}
   <div class="divide-y divide-slate-200 overflow-y-auto w-full flex flex-wrap gap-6">
     {% for course in courses %}
-      <a class="relative flex-1 basis-[20em] max-w-[32em] group" href="/buy-course/{{ course.slug }}">
+      <a class="relative flex-1 basis-[20em] max-w-[32em] group" href="./buy-course/{{ course.slug }}">
         <article class="border rounded-md border-slate-800 flex flex-col min-h-64 group-hover:p-2 transition-all">
           <span data-category="{{ course.category }}" class="absolute top-4 right-2 border-b-2 data-[category='frontend']:border-b-cyan-500 border-b-emerald-500">R$ {{ course.price|floatformat:2 }}</span>
 

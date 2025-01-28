@@ -43,8 +43,8 @@ def login_view(request: HttpRequest):
         if user is not None:
             login(request, user)
             if user.role == "teacher":
-                return redirect("/home")
-            return redirect("/student_home")
+                return redirect("/teacher/")
+            return redirect("/student/")
         else:
             return render(request, "login.html", {"error": "Credenciais inválidas"})
     return render(request, "login.html")
@@ -56,4 +56,4 @@ def home(request: HttpRequest):
 
 def logout(request: HttpRequest):
     request.session.flush()
-    return redirect("/login")
+    return redirect("/")
