@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-zf95-i+*55$3b@5*1y+n(#k2_s7bx53q$_r!3+ism((fk5b9t7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["ranielcsar-courses.fly.dev"]
 
 
 # Application definition

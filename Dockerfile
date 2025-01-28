@@ -1,13 +1,15 @@
 FROM python:3.10
 
-COPY requirements.txt requirements.txt
-COPY init.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
+WORKDIR /app
 
-# copia o código do app para o conteiner
+COPY requirements.txt .
+COPY init.sh entrypoint.sh
 COPY . .
 
-RUN python3 -m venv ambient && . ambient/bin/activate \
-&& pip install -r requirements.txt
+RUN python3 -m venv ambient \
+    && ./ambient/bin/pip install --upgrade pip \
+    && ./ambient/bin/pip install -r requirements.txt
 
-ENTRYPOINT ["bash", "/entrypoint.sh"]
+EXPOSE 8000
+
+ENTRYPOINT ["bash", "/app/entrypoint.sh"]

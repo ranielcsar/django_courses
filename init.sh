@@ -1,3 +1,3 @@
 #!/bin/bash
-source .ambient/bin/activate
-python courses/manage.py runserver
+source /app/ambient/bin/activate
+python /app/courses/manage.py runserver 0.0.0.0:8000
